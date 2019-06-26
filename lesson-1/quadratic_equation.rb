@@ -13,7 +13,7 @@ if d.negative?
   puts 'Корней нет'
 elsif d.zero?
   puts "х1 = х2 = #{-b / 2 * a}"
-elsif d.positive?	
+elsif d.positive?
   puts "x1 = #{(-b + Math.sqrt(d)) / 2 * a}"
   puts "x2 = #{(-b - Math.sqrt(d)) / 2 * a}"
 end
