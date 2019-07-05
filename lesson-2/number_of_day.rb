@@ -1,5 +1,20 @@
 # frozen_string_literal: true
 
+MONTHS_DAY = {
+  1 => 31,
+  2 => 28,
+  3 => 31,
+  4 => 30,
+  5 => 31,
+  6 => 30,
+  7 => 31,
+  8 => 31,
+  9 => 30,
+  10 => 31,
+  11 => 30,
+  12 => 31
+}.freeze
+
 def days_in_months(month_amount)
   day_sum = 0
   while month_amount > 1
@@ -10,20 +25,7 @@ def days_in_months(month_amount)
 end
 
 def month_day(month_number)
-  {
-    1 => 31,
-    2 => 28,
-    3 => 31,
-    4 => 30,
-    5 => 31,
-    6 => 30,
-    7 => 31,
-    8 => 31,
-    9 => 30,
-    10 => 31,
-    11 => 30,
-    12 => 31
-  }[month_number]
+  MONTHS_DAY[month_number]
 end
 
 print 'Введие год: '
@@ -42,7 +44,5 @@ if (1..31).to_a.include?(day) || [1..12].include?(month)
     puts "Номер дня #{day + days_in_months(month)}"
   end
 else
-  puts (1..31).to_a.include?(day)
-  puts month
-  puts "Ошибка ввода"
+  puts 'Ошибка ввода'
 end
