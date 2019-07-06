@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require './train'
-
 class Station
   attr_reader :name, :trains
 
@@ -10,7 +8,7 @@ class Station
     @trains = []
   end
 
-  def recieve_train(train)
+  def receive_train(train)
     trains << train
   end
 

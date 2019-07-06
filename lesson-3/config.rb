@@ -1,0 +1,28 @@
+# frozen_string_literal: true
+
+require_relative 'menu_printer'
+require_relative 'carriage'
+require_relative 'carriage_hooker'
+require_relative 'carriage_unhooker'
+require_relative 'lists'
+require_relative 'route'
+require_relative 'station'
+require_relative 'station_creator'
+require_relative 'train'
+require_relative 'passenger_carriage'
+require_relative 'passenger_train'
+require_relative 'cargo_carriage'
+require_relative 'cargo_train'
+require_relative 'train_creator'
+require_relative 'train_sender'
+
+TRAIN_MESSAGE = 'Поезд №'
+STATION_MESSAGE = 'Станция'
+HOOK_MESSAGE = 'Количество вагонов, которые необходимо присоеденить: '
+UNHOOK_MESSAGE = 'Количество вагонов, которые необходимо отсоеденить: '
+
+NEW_TRAIN_MESSAGE = 'Введите номер поезда'
+ERROR_NEW_INPUT_MESSAGE = 'Пустой ввод или такой объект уже существует'
+EMPTY_LIST_MESSAGE = 'Пустой список'
+FIND_TRAIN_MESSAGE = 'Введите индекс поезда: '
+FIND_STATION_MESSAGE = 'Введите индекс станции: '
