@@ -1,17 +1,13 @@
 # frozen_string_literal: true
 
-require_relative 'route'
-require_relative 'station'
-
 class Train
-  attr_accessor :number, :type, :number_carriages, :speed, :route,
-                :current_station_number
+  attr_reader :number, :carriages, :speed, :route,
+              :current_station_number
 
-  def initialize(number, type, number_carriages)
+  def initialize(number)
     @number = number
-    @type = type
-    @number_carriages = number_carriages
     @speed = 0
+    @carriages = []
   end
 
   def accelerating_by(speed)
@@ -22,14 +18,14 @@ class Train
     self.speed = 0
   end
 
-  def hook_carriages
-    self.number_carriages += 1
+  def hook_carriage(carriage)
+    carriages << carriage if type == carriage.type
   end
 
-  def unhook_carriages
-    raise if speed.positive? || number_carriages.zero?
+  def unhook_carriage
+    raise if speed.positive? || carriages.empty?
 
-    self.number_carriages -= 1
+    carriages.pop
   end
 
   def receive_route(route)
@@ -44,7 +40,13 @@ class Train
     puts "Next station #{next_station.name}" unless last_station?
   end
 
+  def type
+    self.class::TYPE
+  end
+
   private
+
+  attr_writer :speed, :route, :current_station_number
 
   def first_station?
     current_station_number.zero?
