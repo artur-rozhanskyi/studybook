@@ -1,13 +1,27 @@
 # frozen_string_literal: true
 
+require_relative 'manufacturer'
+
 class Train
+  include Manufacturer
   attr_reader :number, :carriages, :speed, :route,
               :current_station_number
+
+  @instances = []
+
+  class << self
+    attr_reader :instances
+
+    def find(number)
+      Train.instances.find { |train| train.number == number }
+    end
+  end
 
   def initialize(number)
     @number = number
     @speed = 0
     @carriages = []
+    Train.instances << self
   end
 
   def accelerating_by(speed)
@@ -23,7 +37,8 @@ class Train
   end
 
   def unhook_carriage
-    raise if speed.positive? || carriages.empty?
+    raise "Speed is'n zero" if speed.positive?
+    raise 'No carriages' if carriages.empty?
 
     carriages.pop
   end
@@ -36,7 +51,7 @@ class Train
   def print_prev_current_next_station
     puts "Prev station #{previous_station.name}" unless first_station?
 
-    puts "Currurent station #{current_station.name}"
+    puts "Current station #{current_station.name}"
     puts "Next station #{next_station.name}" unless last_station?
   end
 
