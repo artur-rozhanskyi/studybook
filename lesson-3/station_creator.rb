@@ -1,10 +1,12 @@
 # frozen_string_literal: true
 
 require_relative 'menu_printer'
-require_relative 'object_adder'
+require_relative 'object_finder'
+require_relative 'validation_error'
+
 class StationCreator
   extend MenuPrinter
-  extend ObjectAdder
+  extend ObjectFinder
   NEW_STATION_MESSAGE = 'Введите название станции'
   OPTIONS = ['1 - Создание станции',
              '0 - Назад'].freeze
@@ -31,12 +33,12 @@ class StationCreator
 
     def create_station
       puts NEW_STATION_MESSAGE
-      create_obj_add_to_array(
-        class_name: Station,
-        array: stations,
-        attr_name: 'name',
-        input: user_input
-      )
+      input = user_input
+      Station.new(input).tap { |obj| stations << obj } unless find(stations, 'name', input)
+      puts 'Станция создана'
+    rescue StandardError => e
+      puts e.message
+      retry
     end
   end
 end

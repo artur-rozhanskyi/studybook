@@ -1,14 +1,8 @@
 # frozen_string_literal: true
 
-shared_examples_for 'train_unhook_carriage' do |carriage_class|
-  let(:train) { described_class.new('number') }
-  let(:carriage) { carriage_class.new }
+shared_examples_for 'train_unhook_carriage' do
   let(:error_message_speed) { "Speed is'n zero" }
   let(:error_message_carriages) { 'No carriages' }
-
-  before do
-    train.hook_carriage(carriage)
-  end
 
   it { expect { train.unhook_carriage }.to change { train.carriages.length }.by(-1) }
 

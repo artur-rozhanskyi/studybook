@@ -1,14 +1,13 @@
 # frozen_string_literal: true
 
 describe Train do
-  let(:number) { '123' }
-  let(:train) { described_class.new(number) }
+  let(:train) { build(:train) }
 
   describe '.find' do
-    let(:cargo_number) { 'number1' }
-    let!(:cargo_train) { CargoTrain.new(cargo_number) }
+    let(:number) { 'qwe-13' }
+    let!(:train_new) { described_class.new(number) }
 
-    it { expect(described_class.find(cargo_number)).to eq(cargo_train) }
+    it { expect(described_class.find(number)).to eq(train_new) }
   end
 
   describe '#accelerating_by' do
@@ -22,11 +21,15 @@ describe Train do
   end
 
   describe '#receive_route' do
-    let(:route) { Route.new(Station.new('station2'), Station.new('station1')) }
+    let(:route) { build(:route) }
 
     before { train.receive_route(route) }
 
     it { expect(train.route).to eq(route) }
     it { expect(train.current_station_number).to be_zero }
+  end
+
+  it_behaves_like 'validatable', described_class, 'qwertyu' do
+    let(:valid_object) { train }
   end
 end

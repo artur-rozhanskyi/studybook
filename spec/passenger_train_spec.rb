@@ -1,8 +1,7 @@
 # frozen_string_literal: true
 
 describe PassengerTrain do
-  let(:passenger_train) { described_class.new('number') }
-  let(:passenger_carriage) { PassengerCarriage.new }
+  let(:passenger_train) { build(:passenger_train) }
 
   describe '#type' do
     let(:type) { :passenger }
@@ -10,12 +9,11 @@ describe PassengerTrain do
     it { expect(passenger_train.type).to eq(type) }
   end
 
-  describe '#hook_carriage' do
-    it {
-      expect { passenger_train.hook_carriage(passenger_carriage) }
-        .to change { passenger_train.carriages.length }.by(1)
-    }
+  it_behaves_like 'train_hook_carriage', PassengerCarriage do
+    let(:train) { passenger_train }
   end
 
-  it_behaves_like 'train_unhook_carriage', PassengerCarriage
+  it_behaves_like 'train_unhook_carriage' do
+    let(:train) { build(:passenger_train, :with_carriage) }
+  end
 end

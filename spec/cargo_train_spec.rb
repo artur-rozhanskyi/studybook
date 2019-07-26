@@ -1,17 +1,17 @@
 # frozen_string_literal: true
 
 describe CargoTrain do
-  let!(:cargo_train) { described_class.new('number') }
-  let(:cargo_carriage) { CargoCarriage.new }
-  let(:type) { :cargo }
+  let(:cargo_train) { build(:cargo_train) }
 
   describe '#type' do
-    it { expect(cargo_train.type).to eq(type) }
+    it { expect(cargo_train.type).to eq(:cargo) }
   end
 
-  describe '#hook_carriage' do
-    it { expect { cargo_train.hook_carriage(cargo_carriage) }.to change { cargo_train.carriages.length }.by(1) }
+  it_behaves_like 'train_hook_carriage', CargoCarriage do
+    let(:train) { cargo_train }
   end
 
-  it_behaves_like 'train_unhook_carriage', CargoCarriage
+  it_behaves_like 'train_unhook_carriage' do
+    let(:train) { build(:cargo_train, :with_carriage) }
+  end
 end

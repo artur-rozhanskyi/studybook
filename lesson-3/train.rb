@@ -1,11 +1,14 @@
 # frozen_string_literal: true
 
 require_relative 'manufacturer'
+require_relative 'validation_error'
 
 class Train
   include Manufacturer
   attr_reader :number, :carriages, :speed, :route,
               :current_station_number
+
+  NUMBER_FORMAT = /\A([a-z]|\d){3}-*([a-z]|\d){2}\z/i.freeze
 
   @instances = []
 
@@ -21,6 +24,7 @@ class Train
     @number = number
     @speed = 0
     @carriages = []
+    validate!
     Train.instances << self
   end
 
@@ -59,7 +63,21 @@ class Train
     self.class::TYPE
   end
 
+  def valid?
+    validate!
+  rescue StandardError
+    false
+  end
+
   private
+
+  def validate!
+    raise ValidationError, "Number can't be nil" if number.nil?
+    raise ValidationError, "Number can't be empty" if number.length.zero?
+    raise ValidationError, 'Number is not valid' if number !~ NUMBER_FORMAT
+
+    true
+  end
 
   attr_writer :speed, :route, :current_station_number
 

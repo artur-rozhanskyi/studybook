@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require 'pry'
+require 'factory_bot'
 require_relative '../lesson-3/station'
 require_relative '../lesson-3/train'
 require_relative '../lesson-3/route'
@@ -11,6 +12,7 @@ require_relative '../lesson-3/passenger_train'
 require_relative '../lesson-3/passenger_carriage'
 require_relative '../lesson-3/manufacturer'
 require_relative '../lesson-3/instance_counter'
+require_relative '../lesson-3/validation_error'
 
 Dir['./spec/support/**/*.rb'].sort.each { |f| require f }
 
@@ -30,6 +32,11 @@ Dir['./spec/support/**/*.rb'].sort.each { |f| require f }
 #
 # See http://rubydoc.info/gems/rspec-core/RSpec/Core/Configuration
 RSpec.configure do |config|
+  config.include FactoryBot::Syntax::Methods
+
+  config.before(:suite) do
+    FactoryBot.find_definitions
+  end
   # rspec-expectations config goes here. You can use an alternate
   # assertion/expectation library such as wrong or the stdlib/minitest
   # assertions if you prefer.
