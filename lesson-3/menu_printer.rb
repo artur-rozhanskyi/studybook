@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require_relative 'object_adder'
-
 module MenuPrinter
   private
 

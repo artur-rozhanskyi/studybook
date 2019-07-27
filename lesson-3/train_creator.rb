@@ -1,10 +1,10 @@
 # frozen_string_literal: true
 
 require_relative 'menu_printer'
-require_relative 'object_adder'
+require_relative 'object_finder'
 class TrainCreator
   extend MenuPrinter
-  extend ObjectAdder
+  extend ObjectFinder
   OPTIONS = ['1 - Создание пассажирского поезда',
              '2 - Создание грузового поезда',
              '0 - Назад'].freeze
@@ -41,14 +41,14 @@ class TrainCreator
       create_train(PassengerTrain)
     end
 
-    def create_train(class_name)
+    def create_train(_class_name)
       puts NEW_TRAIN_MESSAGE
-      create_obj_add_to_array(
-        class_name: class_name,
-        array: trains,
-        attr_name: 'number',
-        input: user_input
-      )
+      input = user_input
+      Train.new(input).tap { |obj| trains << obj } unless find(trains, 'number', input)
+      puts 'Поезд создан'
+    rescue StandardError => e
+      puts e.message
+      retry
     end
   end
 end

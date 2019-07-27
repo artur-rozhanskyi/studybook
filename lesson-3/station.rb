@@ -3,11 +3,14 @@
 class Station
   attr_reader :name, :trains
 
+  NAME_FORMAT = /\A[А-ЯA-Z][а-яa-z0-9_-]+\z/.freeze
+
   @my_instances = []
 
   def initialize(name)
     @name = name
     @trains = []
+    validate!
     self.class.my_instances << self
   end
 
@@ -21,6 +24,22 @@ class Station
 
   def trains_count_by_type(type)
     trains.count { |t| t.type == type }
+  end
+
+  def valid?
+    validate!
+  rescue ValidationError
+    false
+  end
+
+  private
+
+  def validate!
+    raise ValidationError, "Name can't be nil" if name.nil?
+    raise ValidationError, "Name can't be empty" if name.length.zero?
+    raise ValidationError, 'Name is not valid' if name !~ NAME_FORMAT
+
+    true
   end
 
   class << self

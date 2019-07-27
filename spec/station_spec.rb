@@ -1,10 +1,10 @@
 # frozen_string_literal: true
 
 describe Station do
-  let(:station) { described_class.new('station1') }
-  let(:station_2) { described_class.new('station2') }
-  let(:train) { Train.new(number) }
-  let(:number) { 'number' }
+  let(:station) { build(:station) }
+  let(:station_2) { build(:station, name: 'Station-2') }
+  let(:train) { build(:train) }
+  let(:number) { train.number }
 
   describe '#receive_train' do
     it { expect { station.receive_train(train) }.to change(station, :trains).to include(train) }
@@ -19,5 +19,9 @@ describe Station do
 
   describe '.all' do
     it { expect(described_class.all).to include(station, station_2) }
+  end
+
+  it_behaves_like 'validatable', described_class, 'station' do
+    let(:valid_object) { station }
   end
 end
