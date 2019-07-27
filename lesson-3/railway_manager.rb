@@ -17,7 +17,14 @@ class RailwayManager
   class << self
     attr_accessor :trains, :stations, :routes
 
+    def load_settings
+      @stations = YAML.safe_load(File.read(PATH_STATIONS_DATA),
+                                 [Station, CargoTrain, PassengerTrain, CargoCarriage, PassengerCarriage])
+      stations.each { |station| station.each_train { |train| trains << train } }
+    end
+
     def run
+      load_settings
       run_loop
     end
 

@@ -41,10 +41,10 @@ class TrainCreator
       create_train(PassengerTrain)
     end
 
-    def create_train(_class_name)
+    def create_train(class_name)
       puts NEW_TRAIN_MESSAGE
       input = user_input
-      Train.new(input).tap { |obj| trains << obj } unless find(trains, 'number', input)
+      class_name.new(input).tap { |obj| trains << obj } unless find(trains, 'number', input)
       puts 'Поезд создан'
     rescue StandardError => e
       puts e.message

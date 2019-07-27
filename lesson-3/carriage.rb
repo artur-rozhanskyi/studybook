@@ -4,7 +4,8 @@ require_relative 'manufacturer'
 
 class Carriage
   include Manufacturer
-  def type
-    self.class::TYPE
+
+  def info
+    raise NotImplementedError
   end
 end

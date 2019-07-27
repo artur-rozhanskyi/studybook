@@ -36,7 +36,8 @@ module MenuPrinter
       puts EMPTY_LIST_MESSAGE
     else
       array.each_with_index do |val, index|
-        puts "#{index} - #{message} #{instance_attribute_value(val, attr_name)}"
+        puts "#{index} - #{message} #{val.public_send(attr_name)}"
+        yield(val) if block_given?
       end
     end
   end
@@ -49,9 +50,5 @@ module MenuPrinter
       inp = user_answer
     end
     inp
-  end
-
-  def instance_attribute_value(instance, attr_name)
-    instance.instance_variable_get("@#{attr_name.to_sym}")
   end
 end
