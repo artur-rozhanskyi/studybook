@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 describe Station do
-  let(:station) { build(:station) }
+  let(:station) { build(:station, :with_train) }
   let(:station_2) { build(:station, name: 'Station-2') }
   let(:train) { build(:train) }
   let(:number) { train.number }
@@ -23,5 +23,9 @@ describe Station do
 
   it_behaves_like 'validatable', described_class, 'station' do
     let(:valid_object) { station }
+  end
+
+  describe '#each_train' do
+    it { expect { |b| station.each_train(&b) }.to yield_control }
   end
 end

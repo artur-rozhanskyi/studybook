@@ -5,5 +5,8 @@ FactoryBot.define do
     name { 'Station1' }
 
     initialize_with { new(name) }
+    trait :with_train do
+      after(:build) { |station| station.receive_train(build(:train)) }
+    end
   end
 end

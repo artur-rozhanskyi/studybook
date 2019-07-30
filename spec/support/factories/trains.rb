@@ -8,12 +8,12 @@ FactoryBot.define do
 
     factory :cargo_train, parent: :train, class: 'CargoTrain' do
       trait :with_carriage do
-        after(:build) { |p_train| p_train.hook_carriage(CargoCarriage.new) }
+        after(:build) { |p_train| p_train.hook_carriage(build(:cargo_carriage)) }
       end
     end
     factory :passenger_train, parent: :train, class: 'PassengerTrain' do
       trait :with_carriage do
-        after(:build) { |p_train| p_train.hook_carriage(PassengerCarriage.new) }
+        after(:build) { |p_train| p_train.hook_carriage(build(:passenger_carriage)) }
       end
     end
   end

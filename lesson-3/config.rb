@@ -26,3 +26,5 @@ ERROR_NEW_INPUT_MESSAGE = 'Пустой ввод или такой объект 
 EMPTY_LIST_MESSAGE = 'Пустой список'
 FIND_TRAIN_MESSAGE = 'Введите индекс поезда: '
 FIND_STATION_MESSAGE = 'Введите индекс станции: '
+
+PATH_STATIONS_DATA = 'lesson-3/data/stations.yml'

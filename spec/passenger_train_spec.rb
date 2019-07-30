@@ -3,14 +3,9 @@
 describe PassengerTrain do
   let(:passenger_train) { build(:passenger_train) }
 
-  describe '#type' do
-    let(:type) { :passenger }
-
-    it { expect(passenger_train.type).to eq(type) }
-  end
-
-  it_behaves_like 'train_hook_carriage', PassengerCarriage do
+  it_behaves_like 'train_hook_carriage' do
     let(:train) { passenger_train }
+    let(:carriage) { build(:passenger_carriage) }
   end
 
   it_behaves_like 'train_unhook_carriage' do

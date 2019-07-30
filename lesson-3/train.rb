@@ -37,7 +37,7 @@ class Train
   end
 
   def hook_carriage(carriage)
-    carriages << carriage if type == carriage.type
+    carriages << carriage if carriage.is_a?(self.class::CARRIAGE_TYPE)
   end
 
   def unhook_carriage
@@ -59,14 +59,16 @@ class Train
     puts "Next station #{next_station.name}" unless last_station?
   end
 
-  def type
-    self.class::TYPE
-  end
-
   def valid?
     validate!
   rescue StandardError
     false
+  end
+
+  def each_carriage
+    return carriages.to_enum(:each) unless block_given?
+
+    carriages.each { |carriage| yield(carriage) }
   end
 
   private
@@ -77,6 +79,10 @@ class Train
     raise ValidationError, 'Number is not valid' if number !~ NUMBER_FORMAT
 
     true
+  end
+
+  def type_info
+    raise NotImplementedError
   end
 
   attr_writer :speed, :route, :current_station_number
