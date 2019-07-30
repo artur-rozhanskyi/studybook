@@ -4,6 +4,7 @@ require_relative 'config'
 
 class RailwayManager
   extend MenuPrinter
+
   OPTIONS = ['1 - Создать станции',
              '2 - Создать поезда',
              '3 - Добавить вагоны к поезду',
@@ -11,9 +12,11 @@ class RailwayManager
              '5 - Помеcтить поезд на станцию',
              '6 - Показать список',
              'Любой символ - Выход'].freeze
+
   @trains = []
   @stations = []
   @routes = []
+
   class << self
     attr_accessor :trains, :stations, :routes
 

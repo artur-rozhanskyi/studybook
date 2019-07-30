@@ -1,10 +1,13 @@
 # frozen_string_literal: true
 
 require_relative 'menu_printer'
+
 class TrainSender
   extend MenuPrinter
+
   OPTIONS = ['1 - Начать',
              '0 - Назад'].freeze
+
   class << self
     attr_reader :trains, :stations
     def call(trains, stations)

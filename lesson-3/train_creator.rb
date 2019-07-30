@@ -2,12 +2,15 @@
 
 require_relative 'menu_printer'
 require_relative 'object_finder'
+
 class TrainCreator
   extend MenuPrinter
   extend ObjectFinder
+
   OPTIONS = ['1 - Создание пассажирского поезда',
              '2 - Создание грузового поезда',
              '0 - Назад'].freeze
+
   class << self
     attr_accessor :trains
     def call(trains)

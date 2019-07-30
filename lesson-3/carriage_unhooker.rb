@@ -3,8 +3,10 @@
 require_relative 'menu_printer'
 class CarriageUnhooker
   extend MenuPrinter
+
   OPTIONS = ['1 - Отцепить',
              '0 - Назад'].freeze
+
   class << self
     attr_accessor :trains, :train
     def call(trains)
