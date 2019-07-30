@@ -5,10 +5,11 @@ require_relative 'validation_error'
 
 class Train
   include Manufacturer
-  attr_reader :number, :carriages, :speed, :route,
-              :current_station_number
 
   NUMBER_FORMAT = /\A([a-z]|\d){3}-*([a-z]|\d){2}\z/i.freeze
+
+  attr_reader :number, :carriages, :speed, :route,
+              :current_station_number
 
   @instances = []
 

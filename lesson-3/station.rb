@@ -1,11 +1,17 @@
 # frozen_string_literal: true
 
 class Station
-  attr_reader :name, :trains
-
   NAME_FORMAT = /\A[А-ЯA-Z][а-яa-z0-9_-]+\z/.freeze
 
+  attr_reader :name, :trains
+
   @my_instances = []
+
+  class << self
+    attr_reader :my_instances
+
+    alias all my_instances
+  end
 
   def initialize(name)
     @name = name
@@ -44,11 +50,5 @@ class Station
     raise ValidationError, 'Name is not valid' if name !~ NAME_FORMAT
 
     true
-  end
-
-  class << self
-    attr_reader :my_instances
-
-    alias all my_instances
   end
 end

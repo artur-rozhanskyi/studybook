@@ -3,9 +3,10 @@
 require_relative 'menu_printer'
 class CarriageHooker
   extend MenuPrinter
+
   OPTIONS = ['1 - Добавить',
              '0 - Назад'].freeze
-  TYPE_CAPACITY = ['общее количество мест', 'общий объем'].freeze
+
   class << self
     attr_accessor :trains
     def call(trains)
