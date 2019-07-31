@@ -29,13 +29,13 @@ describe Train do
     it { expect(train.current_station_number).to be_zero }
   end
 
-  it_behaves_like 'validatable', described_class, 'qwertyu' do
-    let(:valid_object) { train }
-  end
-
   describe '#each_carriage' do
     let(:train_with_carriage) { build(:cargo_train, :with_carriage) }
 
     it { expect { |b| train_with_carriage.each_carriage(&b) }.to yield_control }
   end
+
+  it_behaves_like 'nil_validation', :train, :number
+  it_behaves_like 'format_validation', :train, :number, 'qwerty'
+  it_behaves_like 'type_validation', :train, :number, 12_345
 end

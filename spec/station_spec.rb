@@ -21,11 +21,11 @@ describe Station do
     it { expect(described_class.all).to include(station, station_2) }
   end
 
-  it_behaves_like 'validatable', described_class, 'station' do
-    let(:valid_object) { station }
-  end
-
   describe '#each_train' do
     it { expect { |b| station.each_train(&b) }.to yield_control }
   end
+
+  it_behaves_like 'nil_validation', :station, :name
+  it_behaves_like 'format_validation', :station, :name, 'station'
+  it_behaves_like 'type_validation', :station, :name, 12_345
 end
