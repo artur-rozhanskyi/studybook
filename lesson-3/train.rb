@@ -1,10 +1,11 @@
 # frozen_string_literal: true
 
 require_relative 'manufacturer'
-require_relative 'validation_error'
+require_relative 'validatable'
 
 class Train
   include Manufacturer
+  include Validatable
 
   NUMBER_FORMAT = /\A([a-z]|\d){3}-*([a-z]|\d){2}\z/i.freeze
 
@@ -12,6 +13,10 @@ class Train
               :current_station_number
 
   @instances = []
+
+  validate :number, :presence
+  validate :number, :type, String
+  validate :number, :format, NUMBER_FORMAT
 
   class << self
     attr_reader :instances
@@ -25,7 +30,6 @@ class Train
     @number = number
     @speed = 0
     @carriages = []
-    validate!
     Train.instances << self
   end
 
@@ -60,26 +64,10 @@ class Train
     puts "Next station #{next_station.name}" unless last_station?
   end
 
-  def valid?
-    validate!
-  rescue StandardError
-    false
-  end
-
   def each_carriage
     return carriages.to_enum(:each) unless block_given?
 
     carriages.each { |carriage| yield(carriage) }
-  end
-
-  private
-
-  def validate!
-    raise ValidationError, "Number can't be nil" if number.nil?
-    raise ValidationError, "Number can't be empty" if number.length.zero?
-    raise ValidationError, 'Number is not valid' if number !~ NUMBER_FORMAT
-
-    true
   end
 
   def type_info

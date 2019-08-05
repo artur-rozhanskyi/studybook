@@ -2,6 +2,7 @@
 
 require 'pry'
 require 'factory_bot'
+require_relative '../lesson-3/accessors'
 require_relative '../lesson-3/station'
 require_relative '../lesson-3/train'
 require_relative '../lesson-3/route'
@@ -12,7 +13,7 @@ require_relative '../lesson-3/passenger_train'
 require_relative '../lesson-3/passenger_carriage'
 require_relative '../lesson-3/manufacturer'
 require_relative '../lesson-3/instance_counter'
-require_relative '../lesson-3/validation_error'
+require_relative '../lesson-3/validatable'
 
 Dir['./spec/support/**/*.rb'].sort.each { |f| require f }
 

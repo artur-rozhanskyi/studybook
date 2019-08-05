@@ -1,9 +1,17 @@
 # frozen_string_literal: true
 
+require_relative 'validatable'
+
 class Station
+  include Validatable
+
   NAME_FORMAT = /\A[А-ЯA-Z][а-яa-z0-9_-]+\z/.freeze
 
   attr_reader :name, :trains
+
+  validate :name, :presence
+  validate :name, :type, String
+  validate :name, :format, NAME_FORMAT
 
   @my_instances = []
 
@@ -32,23 +40,7 @@ class Station
     trains.count { |t| t.type == type }
   end
 
-  def valid?
-    validate!
-  rescue ValidationError
-    false
-  end
-
   def each_train
     trains.each { |t| yield(t) if block_given? }
-  end
-
-  private
-
-  def validate!
-    raise ValidationError, "Name can't be nil" if name.nil?
-    raise ValidationError, "Name can't be empty" if name.length.zero?
-    raise ValidationError, 'Name is not valid' if name !~ NAME_FORMAT
-
-    true
   end
 end
